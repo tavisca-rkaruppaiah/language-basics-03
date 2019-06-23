@@ -38,10 +38,14 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             Console.WriteLine(result);
         }
 
-        int[] caloriesArray;
+       int[] caloriesArray, pro, car, fa;
+        int mincount = 0, maxcount=0;
 
         public int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
+            pro = protein;
+            car = carbs;
+            fa = fat;
 
             caloriesArray = new int[protein.Length];
 
@@ -50,10 +54,10 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 caloriesArray[i] = protein[i] * 5 + carbs[i] * 5 + fat[i] * 9;
             }
 
-            for(int i=0; i<caloriesArray.Length; i++)
+            /*for(int i=0; i<caloriesArray.Length; i++)
             {
                 Console.WriteLine(caloriesArray[i]);
-            }
+            }*/
 
             int size = dietPlans.Length;
             int[] result = new int[size];
@@ -72,24 +76,41 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 }
                 else
                 {
-                    Console.WriteLine("Two Strings");
+                    //Console.WriteLine("Two Strings");
                     char[] ch = dietPlans[i].ToCharArray();
 
                     for(int j=0; j< ch.Length; j++)
                     {
-                       if(ch[i].Equals('t'))
+                       if(ch[j].Equals('t'))
                         {
-                           int nein= findIndex(ch[i], protein, carbs, fat);
+                            //Console.WriteLine("small t");
+
+                            if(UniqueMinCalorieSize('t'))
+                            {
+                                result[i] = findIndex(ch[j], protein, carbs, fat);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                            
                             break;
                         }
-                       else if(ch[i].Equals('T'))
+                       else if(ch[j].Equals('T'))
                         {
-                            int nein = findIndex(ch[i], protein, carbs, fat);
+                            if (UniqueMinCalorieSize('T'))
+                            {
+                                result[i] = findIndex(ch[j], protein, carbs, fat);
+                            }
+                            else
+                            {
+                                continue;
+                            }
                             break;
                         }
                        else
                         {
-                            result[i] = findIndex(ch[i], protein, carbs, fat);
+                            result[i] = findIndex(ch[j], protein, carbs, fat);
                             break;
                         }
                     }
@@ -177,36 +198,19 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
         public int MaximumCalorie()
         {
-            int mca=caloriesArray[0], i;
+            int mca = caloriesArray[0], i;
             bool flag = false;
-            string indexsame=null;
 
-            int mc = -1;
-            for( i=0; i<caloriesArray.Length; i++)
+            int mc = 0;
+            for (i = 0; i < caloriesArray.Length; i++)
             {
-                for(int j= i+1; j<caloriesArray.Length; j++)
+
+                if (mca <= caloriesArray[i])
                 {
-                    if(caloriesArray[i] != caloriesArray[j])
-                    {
-                        flag = true;
-                    }
-                    else
-                    {
-                        indexsame = indexsame + ""+i;
-                    }
-                }
-                if (flag)
-                {
-                    if (mc <= caloriesArray[i])
-                    {
-                        mca = caloriesArray[i];
-                        mc = i;
-                    }
+                    mca = caloriesArray[i];
+                    mc = i;
                 }
             }
-            Console.WriteLine("same calories in " + indexsame);
-
-           
 
             return mc;
         }
@@ -214,30 +218,77 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
         public int MinimumCalorie()
         {
             int mca = caloriesArray[0], i;
-            bool flag = false;
+            
 
-            int mc = -1;
+            int mc = 0;
             for (i = 0; i < caloriesArray.Length; i++)
             {
-                for (int j = i + 1; j < caloriesArray.Length; j++)
+                if (mca >= caloriesArray[i])
                 {
-                    if (caloriesArray[i] != caloriesArray[j])
-                    {
-                        flag = true;
-                    }
-                }
-                if (flag)
-                {
-                    if (mc >= caloriesArray[i])
-                    {
-                        mca = caloriesArray[i];
-                        mc = i;
-                    }
+                    mca = caloriesArray[i];
+                    mc = i;
                 }
             }
 
             return mc;
         }
 
+        public bool UniqueMinCalorieSize(char c)
+        {
+            int min, max;
+            
+
+            if(c.Equals('t'))
+            {
+
+                min=caloriesArray[MinimumCalorie()];
+                for (int i = 0; i < caloriesArray.Length; i++)
+                {
+                   
+                       if(i !=MinimumCalorie())
+                    {
+                        if (min == caloriesArray[i])
+                        {
+                            mincount = mincount++;
+
+                        }
+                    }
+
+                    
+                }
+
+                if(mincount == 0)
+                {
+                    return true;
+                }
+            }
+            else if(c.Equals('T'))
+            {
+                max = caloriesArray[MaximumCalorie()];
+                for (int i = 0; i < caloriesArray.Length; i++)
+                {
+
+                    if (i != MaximumCalorie())
+                    {
+                        if (max == caloriesArray[i])
+                        {
+                            maxcount = maxcount++;
+
+                        }
+                    }
+
+
+                }
+
+                if(maxcount == 0)
+                {
+                    return true;
+                }
+            }
+
+            
+
+
+            return false;
+        }
     }
-}
