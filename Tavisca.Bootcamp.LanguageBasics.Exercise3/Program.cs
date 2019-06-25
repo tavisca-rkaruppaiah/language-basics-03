@@ -112,7 +112,7 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
        
 
-        public List<int> FindIndex(int[] array, List<int> ia, int input)
+        public List<int> FindIndex(int[] array, List<int> indexArray, int input)
         {
 
             
@@ -120,46 +120,46 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             int minMaxValue= array[ia[0]];
             int minMaxIndex=0;
 
-           if(ia.Count>0)
+           if(indexArray.Count>0)
             {
                 if (input == 1)
                 {
-                    for (int i = 0; i < ia.Count; i++)
+                    for (int i = 0; i < indexArray.Count; i++)
                     {
-                        if (minMaxValue < array[ia[i]])
+                        if (minMaxValue < array[indexArray[i]])
                         {
-                            minMaxValue = array[ia[i]];
+                            minMaxValue = array[indexArray[i]];
                         }
                     }
                 }
                 else if (input == 0)
                 {
-                    for (int i = 0; i < ia.Count; i++)
+                    for (int i = 0; i < indexArray.Count; i++)
                     {
-                        if (minMaxValue > array[ia[i]])
+                        if (minMaxValue > array[indexArray[i]])
                         {
-                            minMaxValue = array[ia[i]];
+                            minMaxValue = array[indexArray[i]];
                         }
                     }
                 }
             }
             else
             {
-                return ia;
+                return indexArray;
             }
 
-            List<int> indexArray = new List<int>();
+            List<int> ListIndexArray = new List<int>();
             foreach (int i in ia)
             {
                 if (array[i] == minMaxValue)
                 {
-                    indexArray.Add(i);
+                    listIndexArray.Add(i);
                 }
             }
 
 
 
-            return indexArray;
+            return listIndexArray;
         }
 
     }
