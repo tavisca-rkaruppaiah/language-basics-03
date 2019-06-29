@@ -38,13 +38,11 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             Console.WriteLine(result);
         }
 
-          int[] pro, car, fa, caloriesArray;
+         
 
         public int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
-            pro = protein;
-            car = carbs;
-            fa = fat;
+          
             int[] resultArray = new int[dietPlans.Length];
 
             caloriesArray = new int[protein.Length];
@@ -72,28 +70,28 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                         switch (ch)
                         {
                             case 'P':
-                                indexes = FindIndex(pro, indexes, 1);
+                                indexes = FindUniqueIndex(protein, indexes, 1);
                                 break;
                             case 'p':
-                                indexes = FindIndex(pro, indexes, 0);
+                                indexes = FindUniqueIndex(protein, indexes, 0);
                                 break;
                             case 'C':
-                                indexes = FindIndex(car, indexes, 1);
+                                indexes = FindUniqueIndex(carbs, indexes, 1);
                                 break;
                             case 'c':
-                                indexes = FindIndex(car, indexes, 0);
+                                indexes = FindUniqueIndex(carbs, indexes, 0);
                                 break;
                             case 'F':
-                                indexes = FindIndex(fa, indexes, 1);
+                                indexes = FindUniqueIndex(fat, indexes, 1);
                                 break;
                             case 'f':
-                                indexes = FindIndex(fa, indexes, 0);
+                                indexes = FindUniqueIndex(fat, indexes, 0);
                                 break;
                             case 'T':
-                                indexes = FindIndex(caloriesArray, indexes, 1);
+                                indexes = FindUniqueIndex(caloriesArray, indexes, 1);
                                 break;
                             case 't':
-                                indexes = FindIndex(caloriesArray, indexes, 0);
+                                indexes = FindUniqueIndex(caloriesArray, indexes, 0);
                                 break;
                         }
 
@@ -112,7 +110,7 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
        
 
-        public List<int> FindIndex(int[] array, List<int> indexArray, int input)
+        public List<int> FindUniqueIndex(int[] array, List<int> indexArray, int input)
         {
 
             
