@@ -40,63 +40,37 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
          
 
+       int[] caloriesArray;
+        List<int> indexes = new List<int>();
+
         public int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
-          
+            
             int[] resultArray = new int[dietPlans.Length];
 
             caloriesArray = new int[protein.Length];
 
-            for(int i=0; i<caloriesArray.Length; i++)
+            for (int i = 0; i < caloriesArray.Length; i++)
             {
                 caloriesArray[i] = protein[i] * 5 + carbs[i] * 5 + fat[i] * 9;
             }
 
-            for(int i=0; i<dietPlans.Length; i++)
+            for (int i = 0; i < dietPlans.Length; i++)
             {
-                if(dietPlans.Length == 0)
+                if (dietPlans.Length == 0)
                 {
                     resultArray[i] = 0;
                 }
-                else 
+                else
                 {
-                    List<int> indexes = new List<int>();
+                    
                     for (int k = 0; k < protein.Length; k++)
                     {
                         indexes.Add(k);
                     }
-                    foreach (char ch in dietPlans[i])
-                    {
-                        switch (ch)
-                        {
-                            case 'P':
-                                indexes = FindUniqueIndex(protein, indexes, 1);
-                                break;
-                            case 'p':
-                                indexes = FindUniqueIndex(protein, indexes, 0);
-                                break;
-                            case 'C':
-                                indexes = FindUniqueIndex(carbs, indexes, 1);
-                                break;
-                            case 'c':
-                                indexes = FindUniqueIndex(carbs, indexes, 0);
-                                break;
-                            case 'F':
-                                indexes = FindUniqueIndex(fat, indexes, 1);
-                                break;
-                            case 'f':
-                                indexes = FindUniqueIndex(fat, indexes, 0);
-                                break;
-                            case 'T':
-                                indexes = FindUniqueIndex(caloriesArray, indexes, 1);
-                                break;
-                            case 't':
-                                indexes = FindUniqueIndex(caloriesArray, indexes, 0);
-                                break;
-                        }
 
-                        resultArray[i] = indexes[0];
-                    }
+                    resultArray[i] = GetUniqueIndex(dietPlans[i], protein, carbs, fat);
+                    
                 }
             }
 
@@ -105,59 +79,97 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
 
             return resultArray;
-            
+
         }
 
-       
+        public int GetUniqueIndex( string dietPlans, int[] protein, int[] carbs, int[] fat)
+        {
+            foreach (char singleLetter in dietPlans)
+            {
+                switch (singleLetter)
+                {
+                    case 'P':
+                        indexes = FindIndex(protein, indexes, 1);
+                        break;
+                    case 'p':
+                        indexes = FindIndex(protein, indexes, 0);
+                        break;
+                    case 'C':
+                        indexes = FindIndex(carbs, indexes, 1);
+                        break;
+                    case 'c':
+                        indexes = FindIndex(carbs, indexes, 0);
+                        break;
+                    case 'F':
+                        indexes = FindIndex(fat, indexes, 1);
+                        break;
+                    case 'f':
+                        indexes = FindIndex(fat, indexes, 0);
+                        break;
+                    case 'T':
+                        indexes = FindIndex(caloriesArray, indexes, 1);
+                        break;
+                    case 't':
+                        indexes = FindIndex(caloriesArray, indexes, 0);
+                        break;
+                }
 
-        public List<int> FindUniqueIndex(int[] array, List<int> indexArray, int input)
+                
+            }
+
+
+            return indexes[0];
+        }
+
+
+
+        public List<int> FindIndex(int[] array, List<int> arrayIndex, int input)
         {
 
-            
 
-            int minMaxValue= array[ia[0]];
-            int minMaxIndex=0;
 
-           if(indexArray.Count>0)
+            int minMaxValue = array[arrayIndex[0]];
+       
+
+            if (arrayIndex.Count > 0)
             {
                 if (input == 1)
                 {
-                    for (int i = 0; i < indexArray.Count; i++)
+                    for (int i = 0; i < arrayIndex.Count; i++)
                     {
-                        if (minMaxValue < array[indexArray[i]])
+                        if (minMaxValue < array[arrayIndex[i]])
                         {
-                            minMaxValue = array[indexArray[i]];
+                            minMaxValue = array[arrayIndex[i]];
                         }
                     }
                 }
                 else if (input == 0)
                 {
-                    for (int i = 0; i < indexArray.Count; i++)
+                    for (int i = 0; i < arrayIndex.Count; i++)
                     {
-                        if (minMaxValue > array[indexArray[i]])
+                        if (minMaxValue > array[arrayIndex[i]])
                         {
-                            minMaxValue = array[indexArray[i]];
+                            minMaxValue = array[arrayIndex[i]];
                         }
                     }
                 }
             }
             else
             {
-                return indexArray;
+                return arrayIndex;
             }
 
-            List<int> ListIndexArray = new List<int>();
-            foreach (int i in ia)
+            List<int> indexArray = new List<int>();
+            foreach (int i in arrayIndex)
             {
                 if (array[i] == minMaxValue)
                 {
-                    listIndexArray.Add(i);
+                    indexArray.Add(i);
                 }
             }
 
 
 
-            return listIndexArray;
+            return indexArray;
         }
-
     }
